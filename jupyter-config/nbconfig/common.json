@@ -1,0 +1,8 @@
+{
+    "load_extensions": {
+        "jupyteranalytics/main": true
+    },
+    "GoogleAnalytics": {
+        "tracking_id": null
+    }
+}
