@@ -49,4 +49,6 @@ To permenantly enable tracking on all notebook pages, check the path to your con
 }
 ```
 
-You should note that the notebook logger will indicate if tracking is enabled or not if it can find the Tracking ID.
+Alternatively you can set the Trackig ID by storing it in the `GOOGLE_ANALYTICS_TRACKING_ID` environment variable, this is particularly useful if you're deploying JupyterHub with Docker or Kubernetes.
+
+Note that the notebook logger will indicate if tracking is enabled if it can find the Tracking ID from the configuration, the environment, or the command line (resolved in that order). It will also indicate if the analytics are disabled because no tracking id could be found. Ensure that you have system logging enabled to check that your deployment is correct.
