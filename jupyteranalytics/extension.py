@@ -13,12 +13,15 @@
 Implements the required notebook and server extension functions.
 """
 
+import os
+
 from notebook.services.config import ConfigManager
 from traitlets.config import Configurable
-from traitlets import Unicode
+from traitlets import Unicode, default
 
 
 CONFIG_SECTION = "common"
+GOOGLE_ANALYTICS_TRACKING_ID = "GOOGLE_ANALYTICS_TRACKING_ID"
 
 
 __all__ = [
@@ -54,7 +57,7 @@ def _jupyter_nbextension_paths():
 def load_jupyter_server_extension(nbapp):
     """Configure and load the extension"""
 
-    # Get the config from the command line if available
+    # Get the config from the command line or environment if available
     ga = GoogleAnalytics(parent=nbapp)
     ga.setup_config()
 
@@ -78,6 +81,10 @@ class GoogleAnalytics(Configurable):
         help="The Google Analytics Tracking ID, usually UA-#########-#.",
         config=True
     )
+
+    @default('tracking_id')
+    def _default_tracking_id(self):
+        return os.getenv(GOOGLE_ANALYTICS_TRACKING_ID, None)
 
     def setup_config(self):
         """
